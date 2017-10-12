@@ -15,12 +15,14 @@ public class DatabaseManager {
 	private SQLiteDatabase db;
 
 	protected static final String DB_NAME = "movies";
-	protected static final int DB_VERSION = 1;
+	protected static final int DB_VERSION = 2;
 	protected static final String DB_TABLE = "ratings";
 
 	protected static final String ID_COL = "_id";
 	protected static final String MOVIE_NAME_COL = "name";
 	protected static final String MOVIE_RATING_COL = "rating";
+    protected static final String MOVIE_YEAR_COL = "year";
+    protected static final String MOVIE_REVIEW_DATE_COL = "reviewed";
 
 	private static final String DB_TAG = "DatabaseManager" ;
 	private static final String SQLTAG = "SQLHelper" ;
@@ -45,10 +47,16 @@ public class DatabaseManager {
 
 	//Add a product and quantity to the database.
 	// Returns true if movie added, false if movie is already in the database
-	public boolean addMovie(String name, float rating) {
+	public boolean addMovie(String name, float rating, int year) {
 		ContentValues newProduct = new ContentValues();
 		newProduct.put(MOVIE_NAME_COL, name);
         newProduct.put(MOVIE_RATING_COL, rating);
+        newProduct.put(MOVIE_YEAR_COL, year);
+
+        // Determines the current unix timestamp.
+        long unixTime = System.currentTimeMillis() / 1000L;
+        newProduct.put(MOVIE_REVIEW_DATE_COL, unixTime);
+
         try {
             db.insertOrThrow(DB_TABLE, null, newProduct);
             Log.d(DB_TAG, "Added movie: " + name + " with rating: " + rating);
@@ -66,6 +74,9 @@ public class DatabaseManager {
         Log.d(DB_TAG, "About to update rating for " + movieID + " to " + rating);
         ContentValues updateVals = new ContentValues();
         updateVals.put(MOVIE_RATING_COL, rating);
+        // TODO will it crash if not passed value for each column?
+
+
         String where = ID_COL + " = ? ";
         String[] whereArgs = {Integer.toString(movieID)};
         int rowsMod = db.update(DB_TABLE, updateVals, where, whereArgs);
@@ -84,8 +95,8 @@ public class DatabaseManager {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			String createSQLbase = "CREATE TABLE %s ( %s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT UNIQUE, %s FLOAT )";
-			String createSQL = String.format(createSQLbase, DB_TABLE, ID_COL, MOVIE_NAME_COL, MOVIE_RATING_COL);
+			String createSQLbase = "CREATE TABLE %s ( %s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT UNIQUE, %s FLOAT, %s INTEGER, %s LONG )";
+			String createSQL = String.format(createSQLbase, DB_TABLE, ID_COL, MOVIE_NAME_COL, MOVIE_RATING_COL, MOVIE_YEAR_COL, MOVIE_REVIEW_DATE_COL);
 			db.execSQL(createSQL);
 		}
 
@@ -97,3 +108,7 @@ public class DatabaseManager {
 		}
 	}
 }
+
+
+//Resources:
+    // https://stackoverflow.com/questions/10177552/how-do-i-create-a-unix-timestamp-on-android

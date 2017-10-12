@@ -16,10 +16,12 @@ public class MovieCursorAdapter extends CursorAdapter {
 	private static final String TAG = "MOVIE CURSOR ADAPTER";
 	RatingChangedListener ratingChangedListener;
 
-	//Correpond to column numbers in database
+	//Correspond to column numbers in database
 	private static final int ID_COL = 0;
 	private static final int MOVIE_COL = 1;
 	private static final int RATING_COL = 2;
+    private static final int YEAR_COL = 3;
+    private static final int DATE_COL = 4;
 
 	public MovieCursorAdapter(Context context, Cursor c, boolean autoRequery) {
 		super(context, c, autoRequery);
@@ -48,7 +50,10 @@ public class MovieCursorAdapter extends CursorAdapter {
 
         // Cursor is set to the correct database row that corresponds to this row of the list.
         // Get data by reading the column needed.
-        nameTV.setText(cursor.getString(MOVIE_COL));
+
+        // TODO might need to convert values first.
+        String movieText = cursor.getString(MOVIE_COL) + " (" + cursor.getInt(YEAR_COL) + ") Reviewed: " + cursor.getLong(DATE_COL);
+        nameTV.setText(movieText);
         ratingBar.setRating(cursor.getFloat(RATING_COL));
 
         // Needed to update data

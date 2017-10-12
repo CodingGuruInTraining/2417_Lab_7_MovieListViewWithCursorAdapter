@@ -28,6 +28,7 @@ public class MovieActivity extends AppCompatActivity implements MovieCursorAdapt
 		Button addNew = (Button) findViewById(R.id.add_movie_button);
 		final EditText newMovieNameET = (EditText) findViewById(R.id.add_movie_name);
 		final RatingBar newMovieRB = (RatingBar) findViewById(R.id.add_movie_rating_bar);
+        final EditText newMovieYearET = (EditText) findViewById(R.id.add_movie_year);
 
 		final ListView movieList = (ListView) findViewById(R.id.movie_list_view);
 
@@ -42,9 +43,10 @@ public class MovieActivity extends AppCompatActivity implements MovieCursorAdapt
 			public void onClick(View v) {
 				String name = newMovieNameET.getText().toString();
 				float rating = newMovieRB.getRating();
+                int year = Integer.parseInt(newMovieYearET.getText().toString());
 
 				// Add this movie to the database
-                dbManager.addMovie(name, rating);
+                dbManager.addMovie(name, rating, year);
                 cursorListAdapter.changeCursor(dbManager.getAllMovies());
 
 
