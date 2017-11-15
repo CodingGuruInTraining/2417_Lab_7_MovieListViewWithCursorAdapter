@@ -39,8 +39,8 @@ public class DatabaseManager {
 
 
 	public Cursor getAllMovies() {
-		// Fetch all data, sort by movie name
-        Cursor cursor = db.query(DB_TABLE, null, null, null, null, null, MOVIE_NAME_COL);
+		// Fetch all data, sort by movie name and year
+        Cursor cursor = db.query(DB_TABLE, null, null, null, null, null, MOVIE_YEAR_COL + ", " + MOVIE_NAME_COL);
 		return cursor;
 	}
 

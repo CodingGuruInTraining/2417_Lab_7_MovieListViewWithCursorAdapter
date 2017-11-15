@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MovieListViewWithCursorAdapterTEMPLATE.iml" filepath="$PROJECT_DIR$/MovieListViewWithCursorAdapterTEMPLATE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2417_Lab_7_MovieListViewWithCursorAdapter.iml" filepath="$PROJECT_DIR$/2417_Lab_7_MovieListViewWithCursorAdapter.iml" />
+      <module fileurl="file://D:\Documents\MCTC\2017 Fall\Android\2417_Lab_7_MovieListViewWithCursorAdapter\MovieListViewWithCursorAdapterTEMPLATE.iml" filepath="D:\Documents\MCTC\2017 Fall\Android\2417_Lab_7_MovieListViewWithCursorAdapter\MovieListViewWithCursorAdapterTEMPLATE.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
